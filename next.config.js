@@ -9,8 +9,20 @@ const nextConfig = {
   devIndicators: {
     buildActivity: false,
   },
-  logging: {
-    level: "error",
+  // Reduz logs de desenvolvimento
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
+  // Configuração para reduzir logs
+  output: "standalone",
+  webpack: (config, { dev, isServer }) => {
+    if (!dev) {
+      config.infrastructureLogging = {
+        level: "error",
+      };
+    }
+    return config;
   },
   typescript: {
     // !! WARN !!
