@@ -233,3 +233,50 @@ src/
 - Menos é mais.
 - Comece pequeno e cresça conforme necessário.
 - Mantenha o projeto limpo e organizado.
+
+### Estrutura Recomendada do Projeto
+
+```plaintext
+projeto/
+├── .next/                  # ⚠️ no .gitignore
+├── node_modules/          # ⚠️ no .gitignore
+├── src/
+│   ├── @types/
+│   │   └── next-pwa.d.ts
+│   ├── app/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   └── Button.tsx
+│   └── utils/
+│       └── platform.ts
+├── .cursorrules
+├── .gitattributes
+├── .gitignore
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.js
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── README.md
+├── tailwind.config.ts
+└── tsconfig.json
+```
+
+### Descrição da Estrutura
+
+- **src/@types/**: Definições de tipos TypeScript
+- **src/app/**: Componentes e layouts principais (App Router)
+- **src/components/**: Componentes reutilizáveis
+- **src/utils/**: Funções utilitárias e helpers
+- **Diretórios Ignorados**:
+  - `.next/`: Build e cache do Next.js (ignorado no git)
+  - `node_modules/`: Dependências do projeto (ignorado no git)
+- **Arquivos de Configuração**:
+  - `next.config.js`: Configuração do Next.js
+  - `tailwind.config.ts`: Configuração do Tailwind CSS
+  - `tsconfig.json`: Configuração do TypeScript
+  - `.gitignore`: Arquivos a serem ignorados pelo Git
