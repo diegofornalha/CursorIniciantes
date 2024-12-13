@@ -14,15 +14,10 @@ const nextConfig = {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
   },
-  // Configuração para reduzir logs
-  output: "standalone",
-  webpack: (config, { dev, isServer }) => {
-    if (!dev) {
-      config.infrastructureLogging = {
-        level: "error",
-      };
-    }
-    return config;
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
   },
   typescript: {
     // !! WARN !!
