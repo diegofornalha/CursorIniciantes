@@ -8,6 +8,10 @@
 - Remova funcionalidades não utilizadas
 - Simplifique lógicas complexas
 - Evite over-engineering
+  Ocultar logs de sucesso (200)
+  Ocultar mensagens de compilação
+  Ocultar o aviso experimental do Node.js
+  Manter apenas mensagens de erro importantes
 
 ### 2. Gerencie Dependências com Cuidado
 

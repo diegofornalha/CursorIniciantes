@@ -14,6 +14,11 @@ const nextConfig = {
     maxInactiveAge: 25 * 1000,
     pagesBufferLength: 2,
   },
+  // Configuração para reduzir logs
+  logging: {
+    level: "error",
+    fullUrl: false,
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: "2mb",
