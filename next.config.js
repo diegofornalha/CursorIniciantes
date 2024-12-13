@@ -9,6 +9,9 @@ const nextConfig = {
   devIndicators: {
     buildActivity: false,
   },
+  logging: {
+    level: "error",
+  },
   typescript: {
     // !! WARN !!
     // Permite que builds completem mesmo com erros de TypeScript
