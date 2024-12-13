@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Image } from "./Image";
+import { CldImage } from "next-cloudinary";
 
 export function Upload() {
   const [uploading, setUploading] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -18,20 +19,42 @@ export function Upload() {
 
       const response = await fetch('/api/upload', {
         method: "POST",
+        headers: {},
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error(`Upload failed: ${response.statusText}`);
+        throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log("Upload successful:", data);
+      console.log("Response data:", data);
       setUploadedImage(data.public_id);
     } catch (error) {
-      console.error("Erro no upload:", error);
+      console.error("Erro no upload:", error instanceof Error ? error.message : 'Erro desconhecido');
+      alert("Falha ao fazer upload da imagem. Por favor, tente novamente.");
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!uploadedImage) return;
+    try {
+      setDeleting(true);
+      const response = await fetch(`/api/upload/delete?publicId=${uploadedImage}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error('Falha ao deletar imagem');
+      }
+      
+      setUploadedImage(null);
+    } catch (error) {
+      console.error('Erro ao deletar:', error);
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -49,12 +72,22 @@ export function Upload() {
       </label>
 
       {uploadedImage && (
-        <Image
-          src={`uploads/${uploadedImage}`}
-          alt="Imagem enviada"
-          width={180}
-          height={38}
-        />
+        <div className="flex flex-col items-center gap-2">
+          <CldImage
+            src={uploadedImage}
+            alt="Imagem enviada"
+            width={180}
+            height={38}
+            crop="fill"
+          />
+          <button
+            onClick={handleDelete}
+            disabled={deleting}
+            className="text-red-500 hover:text-red-700"
+          >
+            {deleting ? "Deletando..." : "Deletar"}
+          </button>
+        </div>
       )}
     </div>
   );

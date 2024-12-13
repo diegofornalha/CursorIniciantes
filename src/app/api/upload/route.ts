@@ -9,12 +9,12 @@ cloudinary.config({
 
 export async function POST(request: Request) {
   try {
-    const data = await request.formData();
-    const file = data.get('file') as File;
+    const formData = await request.formData();
+    const file = formData.get('file') as File;
     
     if (!file) {
       return NextResponse.json(
-        { error: 'Nenhum arquivo fornecido' },
+        { error: 'Nenhum arquivo enviado' },
         { status: 400 }
       );
     }
@@ -22,23 +22,21 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const result = await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         { folder: 'uploads' },
         (error, result) => {
           if (error) reject(error);
-          resolve(result);
+          resolve(NextResponse.json(result));
         }
       );
 
       uploadStream.end(buffer);
     });
-
-    return NextResponse.json(result);
   } catch (error) {
     console.error('Erro no upload:', error);
     return NextResponse.json(
-      { error: 'Falha no upload' },
+      { error: 'Falha ao processar upload' },
       { status: 500 }
     );
   }
