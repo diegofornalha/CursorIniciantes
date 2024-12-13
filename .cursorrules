@@ -1,0 +1,200 @@
+# Desenvolvimento Cross-Platform com TypeScript e React
+
+## Diretrizes Gerais
+
+- **Remova Complexidade Desnecessária**: Elimine tudo que não agrega valor ao projeto.
+- **Dependências**: Remova as que não são essenciais e mantenha o mínimo necessário.
+- **Limpeza de Arquivos**: Apague pastas e arquivos não utilizados.
+- **Exportações no `package.json`**: Remova as desnecessárias para simplificar.
+- **Componentes**: Mantenha-os simples e fáceis de entender.
+- **Loops de Correções**: Informe sempre que detectar um padrão de repetição de erros ou correções cíclicas.
+
+## Processo de Desenvolvimento Incremental
+
+1. **Evolução Gradual**:
+
+   - Comece com uma única página funcional.
+   - Adicione um componente por vez.
+   - Teste cada adição antes de avançar.
+   - Só adicione dependências quando absolutamente necessário.
+
+2. **Regras de Ouro**:
+
+   - Não adicione dependências desnecessárias.
+   - Mantenha a simplicidade sempre.
+   - Realize testes frequentes.
+   - Faça commits pequenos e regulares.
+
+3. **Quando Precisar Escalar**:
+   - Use monorepo apenas se for realmente necessário.
+   - Adicione ferramentas conforme a necessidade real.
+   - Mantenha a documentação atualizada.
+   - Faça mudanças incrementais.
+
+## Configuração Inicial
+
+### Remover Avisos Desnecessários
+
+Para remover avisos de desenvolvimento desnecessários, configure o `next.config.js`:
+
+```typescript
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+};
+
+module.exports = nextConfig;
+```
+
+### Configurar .gitignore
+
+Adicione estas entradas essenciais ao `.gitignore`:
+
+```plaintext
+# Dependencies
+node_modules
+
+# Next.js
+.next
+out
+
+# Build
+build
+dist
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+.env
+
+# IDE
+.idea
+.vscode
+```
+
+### Criar um Projeto Next.js Básico
+
+```bash
+npx create-next-app@latest meu-projeto --typescript --tailwind --eslint
+cd meu-projeto
+npm run dev
+```
+
+### Estrutura Inicial Recomendada
+
+```plaintext
+meu-projeto/
+├── src/
+│   ├── components/ # Componentes reutilizáveis
+│   ├── pages/      # Páginas do Next.js
+│   └── styles/     # Estilos globais
+├── package.json
+└── tsconfig.json
+```
+
+### Página Inicial
+
+Crie uma página simples em `src/pages/index.tsx`:
+
+```tsx
+export default function Home() {
+  return <h1>Bem-vindo ao meu projeto Next.js!</h1>;
+}
+```
+
+### Adicionar Componentes Básicos
+
+Exemplo: `src/components/Button.tsx`
+
+```tsx
+import React from "react";
+
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
+  return (
+    <button onClick={onClick} className="bg-blue-500 text-white p-2 rounded">
+      {label}
+    </button>
+  );
+};
+
+export default Button;
+```
+
+### Estilização com Tailwind CSS
+
+Adicione estilos globais em `src/styles/globals.css`:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## Boas Práticas
+
+### ✅ Faça:
+
+- Comece com o mínimo necessário.
+- Adicione funcionalidades uma por vez.
+- Teste cada nova adição.
+- Use TypeScript desde o início.
+- Use Tailwind CSS para estilização.
+
+### ❌ Não Faça:
+
+- Não adicione dependências desnecessárias.
+- Não crie estruturas complexas sem necessidade.
+- Não use monorepo sem necessidade clara.
+- Não misture múltiplas tecnologias de UI.
+- Não tente implementar tudo de uma vez.
+
+## Processo de Desenvolvimento
+
+1. **Crie um Componente**
+2. **Teste o Componente**
+3. **Integre na Página**
+4. **Teste Novamente**
+5. **Faça o Commit**
+6. **Repita o Ciclo**
+
+## Estrutura Mínima Recomendada
+
+```plaintext
+src/
+├── pages/
+│   └── index.tsx # Apenas uma página inicial
+└── components/
+    └── Button.tsx # Um componente por vez
+```
+
+## Checklist Antes de Adicionar Algo Novo
+
+- Isso é realmente necessário agora?
+- Existe uma solução mais simples?
+- Isso vai adicionar complexidade?
+- Vale a pena o trade-off?
+
+## Sinais de Alerta
+
+- Muitos arquivos de configuração.
+- Dependências não utilizadas.
+- Arquivos vazios.
+- Imports não utilizados.
+- Código comentado em excesso.
+
+## Conclusão
+
+- A simplicidade é a chave.
+- Cada linha de código é uma responsabilidade.
+- Menos é mais.
+- Comece pequeno e cresça conforme necessário.
+- Mantenha o projeto limpo e organizado.
