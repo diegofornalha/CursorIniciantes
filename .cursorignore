@@ -75,3 +75,12 @@ tsconfig.tsbuildinfo
 
 # Outros
 .husky/_ 
+
+# Imagens
+public/images/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.ico
